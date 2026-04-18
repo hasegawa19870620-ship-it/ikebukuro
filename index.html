@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>池袋サブカルガイド🎮</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink:   #ff6eb4;
+      --yellow: #ffe94d;
+      --cyan:   #4de8ff;
+      --purple: #c97dff;
+      --green:  #6effa0;
+      --orange: #ffaa3c;
+      --bg:     #1a0a2e;
+    }
+
+    body {
+      font-family: 'Nunito', 'Hiragino Maru Gothic ProN', 'Meiryo', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ---- STARS BG ---- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 15%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 80%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 35%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 85%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 50%, #fff 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem 4rem;
+      background: radial-gradient(ellipse at 50% 40%, #3b0070 0%, #1a0a2e 70%);
+      z-index: 1;
+    }
+
+    .hero-badge {
+      background: var(--yellow);
+      color: #1a0a2e;
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 0.35rem 1.2rem;
+      border-radius: 999px;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      transform: rotate(-2deg);
+      box-shadow: 3px 3px 0 #c8a000;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 14vw, 9rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(255,110,180,0.5));
+    }
+
+    .hero h1 .ruby {
+      display: block;
+      font-size: clamp(1rem, 3vw, 1.8rem);
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.3em;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-copy {
+      margin-top: 1.2rem;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      color: #e8d4ff;
+      line-height: 1.7;
+    }
+
+    .hero-copy em {
+      background: var(--pink);
+      color: #fff;
+      font-style: normal;
+      padding: 0.1em 0.4em;
+      border-radius: 6px;
+    }
+
+    .hero-emojis {
+      margin-top: 1.8rem;
+      font-size: 2.8rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-emojis span {
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .hero-emojis span:nth-child(2) { animation-delay: 0.4s; }
+    .hero-emojis span:nth-child(3) { animation-delay: 0.8s; }
+    .hero-emojis span:nth-child(4) { animation-delay: 1.2s; }
+    .hero-emojis span:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      animation: bounce 1.8s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(10px); }
+    }
+
+    /* ---- WAVE DIVIDER ---- */
+    .wave {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      background: var(--bg);
+    }
+
+    /* ---- SECTIONS ---- */
+    section { position: relative; z-index: 1; padding: 4rem 1.2rem; }
+
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    .sec-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid var(--purple);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: var(--purple);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.8rem;
+    }
+
+    .sec-title {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .sec-desc {
+      font-size: 1rem;
+      color: #c0aadd;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    /* ---- WHAT IS SUBCUL ---- */
+    .what-bg {
+      background: linear-gradient(180deg, #1a0a2e 0%, #0d1f3c 100%);
+    }
+
+    .what-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .what-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 2rem 1.4rem;
+      text-align: center;
+      transition: transform 0.25s, border-color 0.25s;
+      cursor: default;
+    }
+
+    .what-card:hover {
+      transform: translateY(-8px) rotate(1deg);
+      border-color: var(--pink);
+    }
+
+    .what-card .big-emoji { font-size: 3.5rem; margin-bottom: 0.8rem; }
+
+    .what-card h3 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .what-card p {
+      font-size: 0.88rem;
+      color: #b09acc;
+      line-height: 1.7;
+    }
+
+    .what-card .tag {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ---- SPOT SECTION ---- */
+    .spots-bg {
+      background: linear-gradient(180deg, #0d1f3c 0%, #1a0a2e 100%);
+    }
+
+    .spot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .spot-card {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .spot-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .spot-top {
+      height: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spot-top::after {
+      content: attr(data-num);
+      position: absolute;
+      top: 8px;
+      left: 14px;
+      font-size: 0.75rem;
+      font-weight: 900;
+      background: rgba(0,0,0,0.4);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+
+    .s1 { background: linear-gradient(135deg, #ff006e, #8338ec); }
+    .s2 { background: linear-gradient(135deg, #fb5607, #ffbe0b); }
+    .s3 { background: linear-gradient(135deg, #3a86ff, #06d6a0); }
+    .s4 { background: linear-gradient(135deg, #8338ec, #3a86ff); }
+    .s5 { background: linear-gradient(135deg, #06d6a0, #ffe94d); }
+    .s6 { background: linear-gradient(135deg, #ff006e, #ffbe0b); }
+
+    .spot-body {
+      background: rgba(255,255,255,0.05);
+      padding: 1.4rem;
+    }
+
+    .spot-body .spot-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .spot-body h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .spot-body p {
+      font-size: 0.88rem;
+      color: #b09acc;
+      line-height: 1.75;
+    }
+
+    .spot-body .point {
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--yellow);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+
+    /* ---- MAP ---- */
+    .map-bg {
+      background: linear-gradient(180deg, #1a0a2e 0%, #0a1628 100%);
+    }
+
+    .map-wrapper {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(100,149,237,0.25);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .map-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .map-visual {
+      position: relative;
+      background: #0d1520;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .map-pin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      min-width: 120px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .map-pin .pin-emoji { font-size: 1.8rem; }
+
+    .map-pin .pin-name {
+      font-weight: 900;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    .map-pin .pin-walk {
+      font-size: 0.75rem;
+      color: #7a8fa6;
+    }
+
+    /* ---- QUIZ ---- */
+    .quiz-bg {
+      background: linear-gradient(180deg, #0a1628 0%, #1a0a2e 100%);
+    }
+
+    .quiz-box {
+      background: linear-gradient(135deg, #2d0b4e, #0d2b4e);
+      border: 2px solid var(--purple);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quiz-box .q-emoji { font-size: 4rem; margin-bottom: 1rem; }
+
+    .quiz-box .q-text {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    .quiz-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-btn {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.9rem;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-btn:hover {
+      background: var(--purple);
+      border-color: var(--purple);
+      transform: scale(1.04);
+    }
+
+    .quiz-btn.correct { background: var(--green); border-color: var(--green); color: #000; }
+    .quiz-btn.wrong   { background: var(--pink);  border-color: var(--pink);  opacity: 0.5; }
+
+    .quiz-msg {
+      font-size: 1.1rem;
+      font-weight: 900;
+      min-height: 1.5em;
+      color: var(--yellow);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #08060f;
+      color: #4a3a5e;
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer .footer-emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <div class="hero-badge">🗺 東京・豊島区</div>
+  <h1>
+    <span class="ruby">IKEBUKURO</span>
+    池袋
+  </h1>
+  <p class="hero-copy">
+    アニメ・マンガ・ゲーム好きなら<br>
+    絶対行くべき！<em>サブカルの聖地</em>
+  </p>
+  <div class="hero-emojis">
+    <span>🎮</span>
+    <span>📚</span>
+    <span>🎭</span>
+    <span>🎨</span>
+    <span>🌟</span>
+  </div>
+  <p class="scroll-down">▼ スクロールしてみよう</p>
+</div>
+
+<!-- ========== WHAT IS SUBCUL ========== -->
+<section class="what-bg">
+  <div class="container">
+    <div class="sec-label">🎯 まずは知ろう</div>
+    <h2 class="sec-title">サブカルって何？</h2>
+    <p class="sec-desc">「サブカルチャー」の略。アニメ・マンガ・ゲームなど、たくさんの人が楽しむ文化のこと。池袋はそれが全部そろう街！</p>
+    <div class="what-cards">
+      <div class="what-card">
+        <div class="big-emoji">📺</div>
+        <h3>アニメ</h3>
+        <p>グッズショップや声優ライブなど、アニメファンのためのイベントが毎週のように開催されてるよ。</p>
+        <span class="tag" style="background:#ff006e22;color:#ff6eb4;border:1.5px solid #ff6eb4;">推し活の聖地</span>
+      </div>
+      <div class="what-card">
+        <div class="big-emoji">📖</div>
+        <h3>マンガ・同人誌</h3>
+        <p>「乙女ロード」には同人誌や限定グッズを売るお店がいっぱい！世界中のファンが来る場所。</p>
+        <span class="tag" style="background:#ffe94d22;color:#ffe94d;border:1.5px solid #ffe94d;">世界的に有名</span>
+      </div>
+      <div class="what-card">
+        <div class="big-emoji">🎮</div>
+        <h3>ゲーム・カード</h3>
+        <p>レトロゲームから最新ゲームまで。トレカショップも充実！大会も開かれてるよ。</p>
+        <span class="tag" style="background:#4de8ff22;color:#4de8ff;border:1.5px solid #4de8ff;">対戦も楽しい</span>
+      </div>
+      <div class="what-card">
+        <div class="big-emoji">🧥</div>
+        <h3>コスプレ・ファッション</h3>
+        <p>個性的なコスプレ衣装のお店も多い。ハロウィンなどのイベントでは街中がにぎやかに！</p>
+        <span class="tag" style="background:#c97dff22;color:#c97dff;border:1.5px solid #c97dff;">個性全開！</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SPOTS ========== -->
+<section class="spots-bg">
+  <div class="container">
+    <div class="sec-label">📍 スポット紹介</div>
+    <h2 class="sec-title">行っておきたい<br>おすすめ6か所</h2>
+    <p class="sec-desc">池袋でサブカルを楽しむならここ！ぜんぶ池袋駅から歩いていける距離にあるよ。</p>
+    <div class="spot-grid">
+
+      <div class="spot-card">
+        <div class="spot-top s1" data-num="SPOT 01">🛍</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#ff006e33;color:#ff6eb4;">アニメ・グッズ</span>
+          <h3>アニメイト池袋本店</h3>
+          <p>日本最大のアニメショップ！フィギュア・CD・グッズが8フロアにわたって並んでいる。推しのグッズを探そう！</p>
+          <div class="point">⭐ 池袋駅から徒歩3分</div>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-top s2" data-num="SPOT 02">📚</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#ffbe0b33;color:#ffbe0b;">マンガ・同人誌</span>
+          <h3>乙女ロード</h3>
+          <p>女性向けアニメ・マンガ・同人誌のお店が集まる通り。世界中のファンが訪れる、池袋を代表するスポット！</p>
+          <div class="point">⭐ 東池袋エリアにある</div>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-top s3" data-num="SPOT 03">🌊</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#06d6a033;color:#06d6a0;">水族館・展望台</span>
+          <h3>サンシャインシティ</h3>
+          <p>水族館・プラネタリウム・ゲームセンターが全部入った巨大施設。展望台からは東京の景色が一望できるよ！</p>
+          <div class="point">⭐ 池袋駅から徒歩8分</div>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-top s4" data-num="SPOT 04">🎴</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#8338ec33;color:#c97dff;">トレカ・ゲーム</span>
+          <h3>カードショップ・ゲームセンター</h3>
+          <p>池袋にはトレカのお店やゲームセンターがたくさん！大会が開かれていることも。気になるゲームを見つけよう。</p>
+          <div class="point">⭐ 東口・西口どちらにもある</div>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-top s5" data-num="SPOT 05">🍜</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#ffe94d33;color:#ffe94d;">グルメ</span>
+          <h3>アニメコラボカフェ</h3>
+          <p>人気アニメとコラボしたカフェが池袋に続々オープン！推しのキャラのドリンクやフードを楽しめるよ。</p>
+          <div class="point">⭐ 期間限定が多いので事前チェック！</div>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-top s6" data-num="SPOT 06">🎭</div>
+        <div class="spot-body">
+          <span class="spot-tag" style="background:#ff006e33;color:#ff6eb4;">ライブ・イベント</span>
+          <h3>ハレザ池袋・各ライブ会場</h3>
+          <p>声優ライブやアーティストライブが開かれる会場が池袋には多い。好きなアーティストのライブに行こう！</p>
+          <div class="point">⭐ 年間を通してイベント多数</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== MAP ========== -->
+<section class="map-bg">
+  <div class="container">
+    <div class="sec-label">🚉 アクセス</div>
+    <h2 class="sec-title">池袋へのいき方</h2>
+    <p class="sec-desc">池袋駅は東京でもトップクラスの大きな駅。いろんな路線が使えてとても便利！</p>
+
+    <div class="map-wrapper">
+      <div class="map-title">🗺 池袋駅まわりのスポット</div>
+      <div class="map-visual">
+        <div class="map-pin">
+          <span class="pin-emoji">🏬</span>
+          <span class="pin-name">アニメイト<br>池袋本店</span>
+          <span class="pin-walk">🚶 徒歩3分</span>
+        </div>
+        <div class="map-pin">
+          <span class="pin-emoji">📚</span>
+          <span class="pin-name">乙女ロード</span>
+          <span class="pin-walk">🚶 徒歩8分</span>
+        </div>
+        <div class="map-pin">
+          <span class="pin-emoji">🌊</span>
+          <span class="pin-name">サンシャイン<br>シティ</span>
+          <span class="pin-walk">🚶 徒歩8分</span>
+        </div>
+        <div class="map-pin">
+          <span class="pin-emoji">🎮</span>
+          <span class="pin-name">ゲームセンター<br>各所</span>
+          <span class="pin-walk">🚶 徒歩すぐ</span>
+        </div>
+        <div class="map-pin">
+          <span class="pin-emoji">☕</span>
+          <span class="pin-name">コラボカフェ<br>各所</span>
+          <span class="pin-walk">🚶 徒歩3〜10分</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:1.2rem;">
+          <div style="color:var(--cyan);font-weight:900;margin-bottom:0.6rem;">🚃 使える路線</div>
+          <ul style="list-style:none;font-size:0.88rem;color:#b09acc;line-height:2;">
+            <li>▸ JR山手線・埼京線</li>
+            <li>▸ 東京メトロ 丸ノ内線・有楽町線</li>
+            <li>▸ 東武東上線・西武池袋線</li>
+          </ul>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:1.2rem;">
+          <div style="color:var(--yellow);font-weight:900;margin-bottom:0.6rem;">⏱ 主要駅からの時間</div>
+          <ul style="list-style:none;font-size:0.88rem;color:#b09acc;line-height:2;">
+            <li>▸ 新宿　→ 約6分</li>
+            <li>▸ 渋谷　→ 約12分</li>
+            <li>▸ 東京　→ 約20分</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== QUIZ ========== -->
+<section class="quiz-bg">
+  <div class="container">
+    <div class="sec-label">🧠 クイズ！</div>
+    <h2 class="sec-title">池袋クイズに<br>チャレンジ！</h2>
+    <p class="sec-desc">池袋のことをしっかり覚えたかな？全問正解を目指そう！</p>
+
+    <div class="quiz-box" id="quizBox">
+      <div class="q-emoji">🤔</div>
+      <div class="q-text" id="qText">読み込み中…</div>
+      <div class="quiz-choices" id="choices"></div>
+      <div class="quiz-msg" id="qMsg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <span class="footer-emoji">🎮</span>
+  池袋サブカルガイド &nbsp;|&nbsp; 小学生向け紹介ページ &nbsp;|&nbsp; 2026
+</footer>
+
+<script>
+  const quizzes = [
+    {
+      q: "日本最大のアニメショップ「アニメイト」の\n本店はどこにある？",
+      choices: ["秋葉原", "池袋", "渋谷", "新宿"],
+      answer: 1
+    },
+    {
+      q: "女性向けアニメ・同人誌の店が集まる\n池袋の有名な通りの名前は？",
+      choices: ["神田通り", "アキバ通り", "乙女ロード", "サブカル通り"],
+      answer: 2
+    },
+    {
+      q: "池袋駅から「サンシャインシティ」まで\nどのくらい歩く？",
+      choices: ["徒歩1分", "徒歩8分", "徒歩30分", "バスで20分"],
+      answer: 1
+    },
+    {
+      q: "池袋がある区の名前は？",
+      choices: ["新宿区", "渋谷区", "豊島区", "文京区"],
+      answer: 2
+    }
+  ];
+
+  let current = 0;
+  let answered = false;
+
+  function loadQuestion() {
+    answered = false;
+    const q = quizzes[current];
+    document.getElementById("qText").textContent = q.q;
+    document.getElementById("qMsg").textContent = "";
+    const c = document.getElementById("choices");
+    c.innerHTML = "";
+    q.choices.forEach((text, i) => {
+      const btn = document.createElement("button");
+      btn.className = "quiz-btn";
+      btn.textContent = text;
+      btn.onclick = () => {
+        if (answered) return;
+        answered = true;
+        if (i === q.answer) {
+          btn.classList.add("correct");
+          document.getElementById("qMsg").textContent = "⭐ 正解！すごい！";
+        } else {
+          btn.classList.add("wrong");
+          c.querySelectorAll("button")[q.answer].classList.add("correct");
+          document.getElementById("qMsg").textContent = "😢 ざんねん！次は頑張ろう！";
+        }
+        setTimeout(() => {
+          current = (current + 1) % quizzes.length;
+          loadQuestion();
+        }, 1800);
+      };
+      c.appendChild(btn);
+    });
+  }
+
+  loadQuestion();
+</script>
+</body>
+</html>
